@@ -1,17 +1,41 @@
+import kotlin.math.max
+
 fun main() {
+
     fun part1(input: List<String>): Int {
-        return input.size
+        var maxCaloriesCarriedPerElf = 0
+        var elfCaloriesCounter = 0;
+        input.forEach {
+            if(it == "") {
+                maxCaloriesCarriedPerElf = max(maxCaloriesCarriedPerElf, elfCaloriesCounter)
+                elfCaloriesCounter = 0;
+            } else {
+                elfCaloriesCounter += it.toInt();
+            }
+        }
+
+        return maxCaloriesCarriedPerElf
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        var caloriesPerElf = ArrayList<Int>()
+        var elfCaloriesCounter = 0;
+        input.forEach {
+            if(it == "") {
+                caloriesPerElf.add(elfCaloriesCounter)
+                elfCaloriesCounter = 0;
+            } else {
+                elfCaloriesCounter += it.toInt();
+            }
+        }
+        caloriesPerElf.sortDescending()
+        return caloriesPerElf[0] + caloriesPerElf[1] + caloriesPerElf[2]
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
+    val calories = readInput("Day01")
+    val part1Answer = part1(calories)
+    println(part1Answer)
 
-    val input = readInput("Day01")
-    println(part1(input))
-    println(part2(input))
+    val part2Answer = part2(calories)
+    println(part2Answer)
 }
